@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: kafka-consumer
+  labels:
+    app: kafka-consumer
+  namespace: demo
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: kafka-consumer
+  template:
+    metadata:
+      labels:
+        app: kafka-consumer
+    spec:
+      containers:
+      - name: kafka-consumer
+        image: serdarkalayci/kafka-consumer:1.8
+        env:
+        - name:  "KAFKA_BROKER"
+          value: "my-cluster-kafka-bootstrap.kafka.svc.cluster.local:9092"
+        - name: "KAFKA_TOPIC"
+          value: "my-topic"
+        - name: "KAFKA_CONSUMER_GROUP"
+          value: "g1"
+        - name: "SLEEP"
+          value: "3"
+        resources:
+          requests:
+            memory: "64Mi"
+            cpu: "100m"
+          limits:
+            memory: "128Mi"
+            cpu: "500m"

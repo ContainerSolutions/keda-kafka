@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: kafka-producer
+  labels:
+    app: kafka-producer
+  namespace: demo
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: kafka-producer
+  template:
+    metadata:
+      labels:
+        app: kafka-producer
+    spec:
+      containers:
+      - name: kafka-producer
+        image: serdarkalayci/kafka-producer:1.0
+        ports:
+        - containerPort: 5550
+        env:
+        - name: "BIND_ADDRESS"
+          value: ":5550"
+        - name:  "KAFKA_BROKER"
+          value: "my-cluster-kafka-bootstrap.kafka.svc.cluster.local:9092"
+        - name: "KAFKA_TOPIC"
+          value: "my-topic"
+        resources:
+          requests:
+            memory: "64Mi"
+            cpu: "100m"
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
