@@ -2,7 +2,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: kafka-producer-service
-  namespace: demo
+  namespace: keda-demo
 spec:
   selector:
     app: kafka-producer

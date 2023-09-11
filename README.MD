@@ -14,7 +14,8 @@ This demo uses [kafka-producer](serdarkalayci/kafka-producer) and [kafka-consume
 Follow the steps below to install the demo from scratch.
 
 ### Strimzi Kafka Operator Deployment
-You can run [install-strimzi.sh](install-strimzi.sh) file, or copy and paste commands in the exact order to your terminal in order to install Smrimzi Kafka operator and deploy a single-broker and single-zookeeper Kafka cluster. When the cluster is in `Ready` state, you can create the topic by applying [topic.yaml](topic.yaml) file.
+You can run [install-strimzi.sh](install-strimzi.sh) file, or copy and paste commands in the exact order to your terminal in order to install Smrimzi Kafka operator and deploy a single-broker and single-zookeeper Kafka cluster. The [cluster definition](kafka-cluster-ephemeral.yaml) is a copy of Strimzi's own [example](https://github.com/strimzi/strimzi-kafka-operator/blob/0.37.0/examples/kafka/kafka-ephemeral-single.yaml) with a tweak that won't allow auto topic creation. This is to prevent the producer from creating topics automatically, which creates topic with 1 partition and 1 replica by default. This in turn makes more than 1 consumers useless, and the whole demo becomes pointless.
+When the cluster is in `Ready` state, you can create the topic by applying [topic.yaml](topic.yaml) file.
 ```sh
 kubectl apply -f topic.yaml
 ```
@@ -44,7 +45,7 @@ kubectl apply -f consumer-deployment.yaml
 ```
 
 ## ScaledObject
-In order to autoscale our consumer deployment using KEDA depending on the queued message count on the Kafka Topic, we should create an object of type `scaledobjects.keda.sh`. When there are more than 5 messages in `my-topic` topic, it will scale up the target object, which is the `kafka-consumer` deployment.
+In order to autoscale our consumer deployment using KEDA depending on the queued message count on the Kafka Topic, we should create an object of type `scaledobjects.keda.sh`. When there are more than 5 messages in `keda-topic` topic, it will scale up the target object, which is the `kafka-consumer` deployment.
 
 ```sh
 kubectl apply -f scaled-object.yaml

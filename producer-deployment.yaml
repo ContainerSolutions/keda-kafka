@@ -4,7 +4,7 @@ metadata:
   name: kafka-producer
   labels:
     app: kafka-producer
-  namespace: demo
+  namespace: keda-demo
 spec:
   replicas: 1
   selector:
@@ -26,7 +26,7 @@ spec:
         - name:  "KAFKA_BROKER"
           value: "my-cluster-kafka-bootstrap.kafka.svc.cluster.local:9092"
         - name: "KAFKA_TOPIC"
-          value: "my-topic"
+          value: "keda-topic"
         resources:
           requests:
             memory: "64Mi"

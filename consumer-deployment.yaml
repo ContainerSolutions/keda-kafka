@@ -4,7 +4,7 @@ metadata:
   name: kafka-consumer
   labels:
     app: kafka-consumer
-  namespace: demo
+  namespace: keda-demo
 spec:
   replicas: 1
   selector:
@@ -22,7 +22,7 @@ spec:
         - name:  "KAFKA_BROKER"
           value: "my-cluster-kafka-bootstrap.kafka.svc.cluster.local:9092"
         - name: "KAFKA_TOPIC"
-          value: "my-topic"
+          value: "keda-topic"
         - name: "KAFKA_CONSUMER_GROUP"
           value: "g1"
         - name: "SLEEP"

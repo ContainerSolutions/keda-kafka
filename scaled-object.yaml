@@ -2,7 +2,7 @@ apiVersion: keda.sh/v1alpha1
 kind: ScaledObject
 metadata:
   name: kafka-consumer-scaler
-  namespace: demo
+  namespace: keda-demo
 spec:
   scaleTargetRef:
     apiVersion:    apps/v1                           # Optional. Default: apps/v1
@@ -18,7 +18,7 @@ spec:
     metadata:
       bootstrapServers: my-cluster-kafka-bootstrap.kafka.svc.cluster.local:9092
       consumerGroup: g1
-      topic: my-topic
+      topic: keda-topic
       lagThreshold: '1'
       offsetResetPolicy: latest
       allowIdleConsumers: "false"

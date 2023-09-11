@@ -3,10 +3,10 @@ kind: KafkaTopic
 metadata:
   labels:
     strimzi.io/cluster: my-cluster
-  name: my-topic
+  name: keda-topic
   namespace: kafka
 spec:
   config: {}
-  partitions: 5
+  partitions: 10
   replicas: 1
-  topicName: my-topic
+  topicName: keda-topic
